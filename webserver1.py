@@ -19,6 +19,15 @@ class ClientThread(Thread):
             print('Message is: ', message)
 
             filename = message.split()[1]
+
+# test
+            print(message.split()[1])
+            print(message.split()[2])
+            print(message.split()[3])
+            print(message.split()[4])
+            print(message.split()[5])
+
+#test
             f = open(filename[1:])
             outputdata = f.read() ### YOUR CODE HERE ###
 
