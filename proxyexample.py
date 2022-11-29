@@ -10,7 +10,7 @@ port = 8888
 max_connections = 1
 
 if len(sys.argv) <= 1:
-	print 'Usage : "python ProxyServer.py server_ip"\n[server_ip : It is the IP Address Of Proxy Server]'
+	print ('Usage : "python ProxyServer.py server_ip"\n[server_ip : It is the IP Address Of Proxy Server]')
 	sys.exit(2)
 
 # Create a server socket, bind it to a port and start listening
@@ -21,23 +21,23 @@ tcpSerSock.listen(max_connections)
 while 1:
 
 	# Start receiving data from the client
-	print 'Ready to serve...'
+	print ('Ready to serve...')
 	
 	tcpCliSock, addr = tcpSerSock.accept()
-	print 'Received a connection from:', addr
+	print ('Received a connection from:', addr)
 	
 	message = tcpCliSock.recv(1024)
-	print message
+	print (message)
 	
 	# Extract the filename from the given message
-	print message.split()[1]
+	print (message.split()[1])
 	filename = message.split()[1].partition("//")[2]
-	print filename
+	print (filename)
 	
 	fileExist = "false"
 	filetouse = "/" + filename.replace("/","")
 	
-	print filetouse
+	print (filetouse)
 	
 	try:
 		# Check whether the file exist in the cache
@@ -52,7 +52,7 @@ while 1:
 		
 		tcpCliSock.send(resp)
 		
-		print 'Read from cache'
+		print ('Read from cache')
 	
 	# Error handling for file not found in cache
 	except IOError:
@@ -60,7 +60,7 @@ while 1:
 			# Create a socket on the proxyserver
 			c = socket(AF_INET, SOCK_STREAM)
 			hostn = filename.split('/')[0].replace("www.","",1)
-			print hostn
+			print (hostn)
 			try:
 				# Connect to the socket to port 80
 				c.connect((hostn, 80))
@@ -70,7 +70,7 @@ while 1:
 				fileobj.write("GET "+"http://" + filename + " HTTP/1.0\n\n")
 				
 				# Show what request was made
-				print "GET "+"http://" + filename + " HTTP/1.0"
+				print ("GET "+"http://" + filename + " HTTP/1.0")
 
 				# Read the response into buffer
 				resp = c.recv(4096)
@@ -90,8 +90,8 @@ while 1:
 				
 				tcpCliSock.send(response)
 			except Exception, e:
-				print str(e)
-				print "Illegal request"
+				print (str(e))
+				print ("Illegal request")
 		else:
 			# HTTP response message for file not found
 			pass
