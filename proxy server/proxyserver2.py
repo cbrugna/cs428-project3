@@ -107,7 +107,7 @@ serverSocket.listen(4)
 
 while True:
     # Establish the connection
-    print('Ready to serve...')
+    #print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept()
     newthread = ClientThread(connectionSocket)
     newthread.start()
