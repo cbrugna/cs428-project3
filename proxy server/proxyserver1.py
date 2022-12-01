@@ -74,7 +74,7 @@ class ClientThread(Thread):
 # Prepare a sever socket
 serverSocket = socket(AF_INET, SOCK_STREAM)
 ### YOUR CODE HERE ###
-serverPort = 802
+serverPort = 800
 serverSocket.bind(("", serverPort))
 threads = []
 
