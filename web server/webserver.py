@@ -5,6 +5,7 @@ from socket import *
 import sys
 from threading import *
 import threading
+import time
 
 class ClientThread(Thread):
     def __init__(self, connectionSocket):
@@ -19,15 +20,6 @@ class ClientThread(Thread):
             print('Message is: ', message)
 
             filename = message.split()[1]
-
-# test
-            print(message.split()[1])
-            print(message.split()[2])
-            print(message.split()[3])
-            print(message.split()[4])
-            print(message.split()[5])
-
-#test
             f = open(filename[1:])
             outputdata = f.read() ### YOUR CODE HERE ###
 
@@ -38,6 +30,7 @@ class ClientThread(Thread):
             for i in range(0, len(outputdata)):
                 connectionSocket.send(outputdata[i].encode())
             connectionSocket.send("\r\n".encode())
+            print("server-response" + str(threading.get_native_id()) + "," + time.ctime())
 
             # Close client socket
             connectionSocket.close()
@@ -45,6 +38,7 @@ class ClientThread(Thread):
             # Send response message for file not found
             connectionSocket.send("HTTP/1.1 404 Not Found\r\n\r\n".encode()) 
             connectionSocket.send("<html><head></head><body><h1>404 Not Found</h1></body></html>\r\n".encode()) ### YOUR CODE HERE ###
+            print("server-response" + str(threading.get_native_id()) + "," + time.ctime())
             connectionSocket.close()
 
 
